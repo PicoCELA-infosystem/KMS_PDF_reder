@@ -124,10 +124,10 @@ def process_json_to_csv(json_path, csv_path, tax_rate=0.10):
 # --- 実行部分 ---
 if __name__ == "__main__":
     # TODO: 1. ここにGoogle Cloud Vision APIのキーを貼り付けてください。
-    API_KEY = "YOUR_API_KEY_HERE"
+    API_KEY = "AIzaSyDxdSFTCJHoJ-B_oUp3R1LwiKy2jjtqUxE"
     
     # TODO: 2. 処理したいPDFファイルのパスを指定してください。
-    PDF_FILE_PATH = "0f3fcb71-6daf-4622-b138-4b176603c42b.pdf"
+    PDF_FILE_PATH = "仕様書/0f3fcb71-6daf-4622-b138-4b176603c42b.pdf"
     
     # 出力ファイル名
     JSON_FILE_PATH = "invoice_ocr_result.json"
