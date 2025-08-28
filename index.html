@@ -83,6 +83,17 @@
             </a>
         </div>
         
+        <!-- API Key Management -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
+            <h2 class="text-xl font-semibold text-gray-700 mb-2">Gemini API Key 設定</h2>
+            <div class="flex items-center space-x-2">
+                <input type="password" id="apiKeyInput" placeholder="ここにAPIキーを入力" class="flex-grow p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="saveApiKey" class="btn-primary px-4 py-2">保存</button>
+                <button id="clearApiKey" class="btn-primary bg-red-500 hover:bg-red-600 px-4 py-2">クリア</button>
+            </div>
+            <p id="apiKeyStatus" class="text-sm text-gray-500 mt-2"></p>
+        </div>
+        
         <!-- Result Display -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
             <h2 class="text-xl font-semibold text-gray-700 mb-2">CSVデータ</h2>
@@ -90,6 +101,7 @@
         </div>
     </div>
 
+    <script src="prompt.js"></script>
     <script>
         const dropArea = document.getElementById('drop-area');
         const fileInput = document.getElementById('fileElem');
@@ -186,7 +198,7 @@
             copyBtn.disabled = true;
             downloadBtn.classList.add('hidden');
 
-            const prompt = `以下のPDFから、品名と金額を抽出し、CSV形式のJSON配列にしてください。品名は「明細名」、金額は「税込金額」としてください。金額には10%の消費税を含めてください。ただし、「送料」と名の付く項目は税計算の対象外とし、元の金額をそのまま使用してください。また、OCRで読み取れない文字がある場合は、サンプルのCSVデータ「明細名,税込金額\n\"PCWL-0410 受入検査作業費 1台@1500\",1650\n\"PCWL-0410 ACアダプタ発送業務 1台@270\",297\n\"PCWL-0510 受入検査作業 40台 @1,900\",83600\n\"PCWL-0510 ACアダプタ発送業務 1台@270\",297\n\"PCWL-0530E 受入検査作業 57台 @1,900\",119130\n\"PCWL-0530E ID/OD識別作業費 57台 @300\",18810\n\"PCWL-0530E 指向性アンテナ発送業務 15台 @230\",3795\n\"PCWL-0501 受入検査作業 38台 @1,000\",41800\n\"PCWL-0511 受入検査作業 47台 @1,000\",51700\n\"送料 PCWL-0410\",2915\n\"送料 PCWL-0500\",5170\n\"送料 PCWL-0510\",19415\n\"送料 PCWL-0530E\",11055\n\"送料 エクシオ\",1760\n\"送料（指向性アンテナ）\",4400\n\"保管費用\",133650\n\"部材入出荷等追加費用\",18353.5\n\"部材発送\",6600」の形式を参考に、推論して補完してください。合計金額や送料内訳、その他費用もすべて含めてください。金額は¥マークを除いて数値のみにしてください。`;
+            
             
             let chatHistory = [];
             chatHistory.push({
@@ -219,7 +231,13 @@
                 }
             };
 
-            const apiKey = "AIzaSyDxdSFTCJHoJ-B_oUp3R1LwiKy2jjtqUxE";
+            
+            const apiKey = localStorage.getItem(API_KEY_STORAGE_KEY); // ここを修正
+            if (!apiKey) {
+                showError('APIキーが設定されていません。APIキー設定欄に入力してください。');
+                setLoading(false);
+                return;
+            }
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
             try {
@@ -309,6 +327,46 @@
         function setStatus(message) {
             statusDiv.textContent = message;
         }
+
+        // API Key Management
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const saveApiKeyBtn = document.getElementById('saveApiKey');
+        const clearApiKeyBtn = document.getElementById('clearApiKey');
+        const apiKeyStatus = document.getElementById('apiKeyStatus');
+
+        const API_KEY_STORAGE_KEY = 'gemini_api_key';
+
+        // Load API Key from localStorage on page load
+        function loadApiKey() {
+            const storedApiKey = localStorage.getItem(API_KEY_STORAGE_KEY);
+            if (storedApiKey) {
+                apiKeyInput.value = storedApiKey;
+                apiKeyStatus.textContent = 'APIキーが読み込まれました。';
+            } else {
+                apiKeyStatus.textContent = 'APIキーが設定されていません。';
+            }
+        }
+
+        // Save API Key to localStorage
+        saveApiKeyBtn.addEventListener('click', () => {
+            const key = apiKeyInput.value.trim();
+            if (key) {
+                localStorage.setItem(API_KEY_STORAGE_KEY, key);
+                apiKeyStatus.textContent = 'APIキーが保存されました。';
+            } else {
+                apiKeyStatus.textContent = 'APIキーを入力してください。';
+            }
+        });
+
+        // Clear API Key from localStorage
+        clearApiKeyBtn.addEventListener('click', () => {
+            localStorage.removeItem(API_KEY_STORAGE_KEY);
+            apiKeyInput.value = '';
+            apiKeyStatus.textContent = 'APIキーがクリアされました。';
+        });
+
+        // Call loadApiKey on page load
+        loadApiKey();
     </script>
 </body>
 </html>
