@@ -26,4 +26,5 @@ pip-delete-this-directory.txt
 
 # Custom ignored directories
 失敗作/
-narita/err.log 
+narita/
+err.log
