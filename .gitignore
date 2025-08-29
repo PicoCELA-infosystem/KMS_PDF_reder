@@ -17,6 +17,12 @@ pip-delete-this-directory.txt
 *.png
 *.txt
 
+# 圧縮ファイル
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
 # IDE and editor specific
 .vscode/
 .idea/
