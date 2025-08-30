@@ -30,8 +30,5 @@ pip-delete-this-directory.txt
 # OS specific
 .DS_Store
 
-# Custom ignored directories
-失敗作/
-仕様書/
-narita/
-err.log
+# No Push Folder
+no_push/
