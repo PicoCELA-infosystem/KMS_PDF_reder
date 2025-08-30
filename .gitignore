@@ -32,3 +32,6 @@ pip-delete-this-directory.txt
 
 # No Push Folder
 no_push/
+
+# Docs Folder (moved back to root, but ignored)
+docs/
