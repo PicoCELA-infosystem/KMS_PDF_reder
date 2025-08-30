@@ -35,3 +35,9 @@ no_push/
 
 # Docs Folder (moved back to root, but ignored)
 # docs/
+
+# errors and logs
+error.log
+debug.log
+*.log
+*.log.* # log rotation files like error.log.1, error.log.2.gz, etc.
