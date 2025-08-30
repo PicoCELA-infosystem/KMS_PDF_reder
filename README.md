@@ -10,7 +10,7 @@
 
 このツールはウェブアプリケーションとして提供されます。以下のURLにアクセスしてご利用ください。
 
-**ツールURL:** (Netlifyデプロイ後に発行されるURLをここに記載)
+**ツールURL:** https://picocela-infosystem.github.io/KMS_PDF_reder/
 
 ### ローカル環境での実行・配布物
 
@@ -87,4 +87,4 @@
 Netlifyは、GitHubリポジトリの更新を検知し、自動的に最新版のウェブアプリケーションをデプロイします。これにより、常に最新のツールが利用可能になります。
 
 *   **デプロイ先:** Netlify
-*   **デプロイURL:** (Netlifyデプロイ後に発行されるURLをここに記載)
+*   **デプロイURL:** https://picocela-infosystem.github.io/KMS_PDF_reder/
