@@ -392,7 +392,7 @@
         docLinks.forEach(link => {
             link.addEventListener('click', async (e) => {
                 e.preventDefault();
-                const docPath = e.target.dataset.doc;
+                const docPath = e.target.getAttribute('href'); // href属性からパスを取得
                 try {
                     const response = await fetch(docPath);
                     if (!response.ok) {
