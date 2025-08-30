@@ -70,21 +70,4 @@
 
 詳しい手順は、配布物に含まれる`docs`フォルダの中にある `GEMINI_API_GUIDE.md` に、誰でも分かるように図解（文字ベース）付きでまとめてあります。そちらを参考に設定を進めてください。
 
-## 7. デプロイとGitHubリポジトリについて
 
-本ツールは現在、Netlifyを通じてウェブアプリケーションとしてデプロイされています。
-
-### GitHubリポジトリの管理
-
-本ツールのソースコードは、企業用のGitHub Organizationである `PicoCELA-infosystem` のリポジトリ `KMS_PDF_reder` で管理されています。
-
-*   **リポジトリURL:** `https://github.com/PicoCELA-infosystem/KMS_PDF_reder`
-*   **可視性:** ソースコードの機密性を保つため、リポジトリは `Private`（非公開）設定です。
-*   **旧リポジトリからの移行:** 以前、個人のGitHubアカウントで管理されていたリポジトリは、セキュリティと管理体制の強化のため、この企業用Organizationへ移行され、旧リポジリは削除されました。
-
-### デプロイ方法
-
-Netlifyは、GitHubリポジトリの更新を検知し、自動的に最新版のウェブアプリケーションをデプロイします。これにより、常に最新のツールが利用可能になります。
-
-*   **デプロイ先:** Netlify
-*   **デプロイURL:** https://picocela-infosystem.github.io/KMS_PDF_reder/
