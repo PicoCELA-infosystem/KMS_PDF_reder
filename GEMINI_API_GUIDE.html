@@ -1,207 +1,147 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-     
-  <meta charset="UTF-8">
-     
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Gemini APIキー 取得・設定 完全ガイド</title>
-     
-  <script src="https://cdn.tailwindcss.com"></script>
-     
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-     
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-      <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f3f4f6;
-    }
-
-    .container {
-      max-width: 900px;
-    }
-
-    .prose h1,
-    .prose h2,
-    .prose h3,
-    .prose h4,
-    .prose h5,
-    .prose h6 {
-      color: #1f2937;
-      font-weight: 700;
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-    }
-
-    .prose p,
-    .prose li {
-      color: #4b5563;
-      line-height: 1.75;
-    }
-
-    .prose ul {
-      list-style-type: disc;
-      padding-left: 1.5em;
-    }
-
-    .prose ol {
-      list-style-type: decimal;
-      padding-left: 1.5em;
-    }
-
-    .prose a {
-      color: #4f46e5;
-      text-decoration: underline;
-    }
-
-    .prose strong {
-      font-weight: 600;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini APIキー 取得・設定 完全ガイド</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/manual.css">
 </head>
-
 <body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
-      <div class="container bg-white p-8 rounded-xl shadow-lg w-full">
-            <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">Gemini APIキー 取得・設定 完全ガイド</h1>
-            <div class="prose max-w-none">
-                  <div class="prose max-w-none">
-        <h1>Gemini APIキー 取得・設定 完全ガイド</h1>
-        <h2>はじめに</h2>
-        <p>このドキュメントは、「PDF請求書CSV変換ツール」を使用するために必要な「APIキー」の取得から設定まで、すべての手順を説明するものです。</p>
-        <hr />
-        <h2>Part 1: 【最重要】準備：Google Cloudプロジェクトの作成</h2>
-        <p>APIキーを取得するには、<strong>あらかじめGoogle Cloudプロジェクトが一つ以上、存在している必要があります。</strong> この準備がすべてにおいて最初の手順となります。</p>
-        <h3>▼ プロジェクトをまだ持っていない場合</h3>
-        <p>以下の手順で、先にGoogle Cloudプロジェクトを1つ作成してください。</p>
-        <ol>
-          <li><strong>Google Cloudコンソールにアクセス</strong>
-            <ul>
-              <li>Webブラウザで、以下のプロジェクト作成ページにアクセスします。</li>
-              <li><strong><a href="https://console.cloud.google.com/projectcreate"
-                    target="_blank">https://console.cloud.google.com/projectcreate</a></strong></li>
-            </ul>
-          </li>
-          <li><strong>プロジェクト名を入力</strong>
-            <ul>
-              <li>「プロジェクト名」の入力欄に、ご自身が分かりやすい名前を入力します。（例: <code>My-Gemini-Project</code>）</li>
-            </ul>
-          </li>
-          <li><strong>【法人利用の場合】組織と場所</strong>
-            <ul>
-              <li><strong>組織:</strong> 会社などの団体でご利用の場合、プルダウンにご自身の会社組織名が表示されますので、そちらを選択してください。不明な場合は、社内のIT管理者にご確認ください。
-              </li>
-              <li><strong>場所:</strong> 個人の場合は変更不要です。法人の場合で、社内にプロジェクト作成場所のルールがあれば、それに従ってください。不明な場合は、組織を選択したままで大丈夫です。</li>
-            </ul>
-          </li>
-          <li><strong>作成ボタンを押す</strong>
-            <ul>
-              <li><code>[作成]</code> ボタンを押します。</li>
-            </ul>
-          </li>
-          <li><strong>【重要】請求先アカウントについて</strong>
-            <ul>
-              <li>もし、これまでに一度もGoogle Cloudを利用したことがない場合、この過程で<strong>請求先アカウントの設定（クレジットカードの登録など）</strong>を求められることがあります。
-              </li>
-              <li>これは、無料枠を超えた場合に備えるためのもので、すぐに料金が発生するわけではありませんが、画面の指示に従って設定を進めてください。</li>
-            </ul>
-          </li>
-        </ol>
-        <hr />
-        <h2>Part 2: APIキーの取得</h2>
-        <p>Google Cloudプロジェクトの準備ができたら、いよいよAPIキーを取得します。</p>
-        <h3>【重要】</h3>
-        <p>恒久的に使用するアプリケーションのため、プロトタイプ作成用のGoogle AI Studioではなく、Google
-          CloudコンソールからAPIキーを取得します。これにより、利用状況の管理やセキュリティ設定が可能になります。</p>
-        <ol>
-          <li>Google Cloudコンソールにアクセス
-            <ul>
-              <li>Webブラウザで <a href="https://console.cloud.google.com/" target="_blank">https://console.cloud.com/</a>
-                にアクセスし、Googleアカウントでログインします。</li>
-              <li>画面上部で、Part 1で作成したプロジェクトが選択されていることを確認してください。</li>
-            </ul>
-          </li>
-          <li>「APIとサービス」画面へ移動
-            <ul>
-              <li>左側のメニューから [API とサービス] をクリックし、次に [認証情報] をクリックします。</li>
-            </ul>
-          </li>
-          <li>APIキーを作成
-            <ul>
-              <li>画面上部にある [認証情報を作成] ボタンをクリックし、ドロップダウンメニューから [API キー] を選択します。</li>
-              <li>APIキーが即座に生成され、ポップアップが表示されます。[コピー] ボタンをクリックして、キー（AIzaSyから始まる長い文字列）をクリップボードにコピーしてください。</li>
-            </ul>
-          </li>
-          <li>【推奨】セキュリティ設定（API制限）
-            <ul>
-              <li>コピー後、続けてセキュリティ設定を行います。これにより、不要なAPIへのアクセスを制限し、より安全に利用できます。</li>
-              <li>ポップアップ画面で [API キーを編集] をクリックします。</li>
-              <li>「API の制限」セクションで、[キーを制限する] を選択します。</li>
-              <li>ドロップダウンメニューから Gemini API に関連するサービス（例：Vertex AI API、Generative Language APIなど）を選択し、[完了] をクリックします。</li>
-            </ul>
-          </li>
-        </ol>
-        <hr />
-        <h2>Part 3: ツールへの設定</h2>
-        <ol>
-          <li>コピーしたAPIキーを、ツールの画面下部にある <code>[Gemini API Key 設定]</code> の入力欄に貼り付けます。</li>
-          <li><code>[保存]</code> ボタンを押して完了です。</li>
-        </ol>
-        <hr />
-        <h2>Part 4: 料金に関するご注意</h2>
-        <p>APIの利用は、無料の範囲を超える可能性があります。APIキーの作成・利用の前に、必ず以下の料金体系をご理解の上、ご自身の責任で利用してください。</p>
-        <h3>料金体系の概要</h3>
-        <p>料金体系は、「無料利用枠」と「従量課金制」の組み合わせです。</p>
-        <ol>
-          <li><strong>無料利用枠:</strong> 毎月、一定量まで無料で使える枠が提供されています。小規模な利用であれば、無料枠で収まる可能性があります。</li>
-          <li><strong>従量課金:</strong> 無料枠を超えた分は、利用した量に応じて料金がかかります。料金はAIモデルの種類や処理データ量で計算されます。</li>
-        </ol>
-        <h3>▼最新の正確な料金情報</h3>
-        <p>料金は予告なく変更されるため、<strong>利用前に必ず公式サイトで最新の料金を直接ご確認ください。</strong></p>
-        <p><strong><a href="https://cloud.google.com/vertex-ai/pricing" target="_blank">Google Cloud Vertex AI
-              公式料金ページ</a></strong></p>
-        <hr />
-        <h2>Part 5 (補足): Google Cloudプロジェクトを削除する方法</h2>
-        <p>間違えてプロジェクトを作成してしまった場合など、不要になったプロジェクトは以下の手順で削除できます。</p>
-        <p><strong>【重要】ご注意</strong><br />
-          プロジェクトを削除すると、そのプロジェクトに関連するすべてのデータや設定が最終的に失われ、元に戻すことはできなくなります。そのプロジェクトで作成したAPIキーもすべて機能しなくなります。</p>
-        <ol>
-          <li><strong>プロジェクト設定ページにアクセス</strong>
-            <ul>
-              <li>Google Cloudコンソールの設定ページに直接アクセスします。</li>
-              <li><strong><a href="https://console.cloud.google.com/iam-admin/settings"
-                    target="_blank">https://console.cloud.google.com/iam-admin/settings</a></strong></li>
-            </ul>
-          </li>
-          <li><strong>プロジェクトの選択を確認</strong>
-            <ul>
-              <li>画面上部に、現在選択されているプロジェクト名が表示されています。削除したいプロジェクト名になっていることを確認してください。</li>
-            </ul>
-          </li>
-          <li><strong>シャットダウン をクリック</strong>
-            <ul>
-              <li>ゴミ箱のアイコンが付いた<strong><code>[シャットダウン]</code></strong> ボタンをクリックします。</li>
-            </ul>
-          </li>
-          <li><strong>プロジェクトIDを入力して最終確認</strong>
-            <ul>
-              <li>確認画面で、削除するプロジェクトのID（例: <code>test-my-project-470408</code>のような文字列）を入力するよう求められます。</li>
-              <li>画面の指示に従ってIDを正確に入力し、<code>[シャットダウン]</code> ボタンをクリックします。</li>
-            </ul>
-          </li>
-        </ol>
-        <p>これで削除手続きは完了です。プロジェクトは30日間の削除保留期間を経て、完全に削除されます。</p>
-               
-      </div>
-
-              </div>
-        </div>
-      <footer class="text-center text-gray-500 text-xs mt-4 pb-4">
-            &copy; 2025 K.Konuma
-        </footer>
+    <div class="container bg-white p-8 rounded-xl shadow-lg w-full">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">Gemini APIキー 取得・設定 完全ガイド</h1>
+        <div class="prose max-w-none">
+            <h2>はじめに</h2>
+            <p>このドキュメントは、「PDF請求書CSV変換ツール」を使用するために必要な「APIキー」の取得から設定まで、すべての手順を説明するものです。</p>
+            <hr />
+            <h2>Part 1: 【最重要】準備：Google Cloudプロジェクトの作成</h2>
+            <p>APIキーを取得するには、<strong>あらかじめGoogle Cloudプロジェクトが一つ以上、存在している必要があります。</strong> この準備がすべてにおいて最初の手順となります。</p>
+            <h3>▼ プロジェクトをまだ持っていない場合</h3>
+            <p>以下の手順で、先にGoogle Cloudプロジェクトを1つ作成してください。</p>
+            <ol>
+                <li><strong>Google Cloudコンソールにアクセス</strong>
+                    <ul>
+                        <li>Webブラウザで、以下のプロジェクト作成ページにアクセスします。</li>
+                        <li><strong><a href="https://console.cloud.google.com/projectcreate"
+                                    target="_blank">https://console.cloud.google.com/projectcreate</a></strong></li>
+                    </ul>
+                </li>
+                <li><strong>プロジェクト名を入力</strong>
+                    <ul>
+                        <li>「プロジェクト名」の入力欄に、ご自身が分かりやすい名前を入力します。（例: <code>My-Gemini-Project</code>）</li>
+                    </ul>
+                </li>
+                <li><strong>【法人利用の場合】組織と場所</strong>
+                    <ul>
+                        <li><strong>組織:</strong> 会社などの団体でご利用の場合、プルダウンにご自身の会社組織名が表示されますので、そちらを選択してください。不明な場合は、社内のIT管理者にご確認ください。
+                        </li>
+                        <li><strong>場所:</strong> 個人の場合は変更不要です。法人の場合で、社内にプロジェクト作成場所のルールがあれば、それに従ってください。不明な場合は、組織を選択したままで大丈夫です。</li>
+                    </ul>
+                </li>
+                <li><strong>作成ボタンを押す</strong>
+                    <ul>
+                        <li><code>[作成]</code> ボタンを押します。</li>
+                    </ul>
+                </li>
+                <li><strong>【重要】請求先アカウントについて</strong>
+                    <ul>
+                        <li>もし、これまでに一度もGoogle Cloudを利用したことがない場合、この過程で<strong>請求先アカウントの設定（クレジットカードの登録など）</strong>を求められることがあります。
+                        </li>
+                        <li>これは、無料枠を超えた場合に備えるためのもので、すぐに料金が発生するわけではありませんが、画面の指示に従って設定を進めてください。</li>
+                    </ul>
+                </li>
+            </ol>
+            <hr />
+            <h2>Part 2: APIキーの取得</h2>
+            <p>Google Cloudプロジェクトの準備ができたら、いよいよAPIキーを取得します。</p>
+            <h3>【重要】</h3>
+            <p>恒久的に使用するアプリケーションのため、プロトタイプ作成用のGoogle AI Studioではなく、Google
+                CloudコンソールからAPIキーを取得します。これにより、利用状況の管理やセキュリティ設定が可能になります。</p>
+            <ol>
+                <li>Google Cloudコンソールにアクセス
+                    <ul>
+                        <li>Webブラウザで <a href="https://console.cloud.google.com/" target="_blank">https://console.cloud.com/</a>
+                            にアクセスし、Googleアカウントでログインします。</li>
+                        <li>画面上部で、Part 1で作成したプロジェクトが選択されていることを確認してください。</li>
+                    </ul>
+                </li>
+                <li>「APIとサービス」画面へ移動
+                    <ul>
+                        <li>左側のメニューから [API とサービス] をクリックし、次に [認証情報] をクリックします。</li>
+                    </ul>
+                </li>
+                <li>APIキーを作成
+                    <ul>
+                        <li>画面上部にある [認証情報を作成] ボタンをクリックし、ドロップダウンメニューから [API キー] を選択します。</li>
+                        <li>APIキーが即座に生成され、ポップアップが表示されます。[コピー] ボタンをクリックして、キー（AIzaSyから始まる長い文字列）をクリップボードにコピーしてください。</li>
+                    </ul>
+                </li>
+                <li>【推奨】セキュリティ設定（API制限）
+                    <ul>
+                        <li>コピー後、続けてセキュリティ設定を行います。これにより、不要なAPIへのアクセスを制限し、より安全に利用できます。</li>
+                        <li>ポップアップ画面で [API キーを編集] をクリックします。</li>
+                        <li>「API の制限」セクションで、[キーを制限する] を選択します。</li>
+                        <li>ドロップダウンメニューから Gemini API に関連するサービス（例：Vertex AI API、Generative Language APIなど）を選択し、[完了] をクリックします。</li>
+                    </ul>
+                </li>
+            </ol>
+            <hr />
+            <h2>Part 3: ツールへの設定</h2>
+            <ol>
+                <li>コピーしたAPIキーを、ツールの画面下部にある <code>[Gemini API Key 設定]</code> の入力欄に貼り付けます。</li>
+                <li><code>[保存]</code> ボタンを押して完了です。</li>
+            </ol>
+            <hr />
+            <h2>Part 4: 料金に関するご注意</h2>
+            <p>APIの利用は、無料の範囲を超える可能性があります。APIキーの作成・利用の前に、必ず以下の料金体系をご理解の上、ご自身の責任で利用してください。</p>
+            <h3>料金体系の概要</h3>
+            <p>料金体系は、「無料利用枠」と「従量課金制」の組み合わせです。</p>
+            <ol>
+                <li><strong>無料利用枠:</strong> 毎月、一定量まで無料で使える枠が提供されています。小規模な利用であれば、無料枠で収まる可能性があります。</li>
+                <li><strong>従量課金:</strong> 無料枠を超えた分は、利用した量に応じて料金がかかります。料金はAIモデルの種類や処理データ量で計算されます。</li>
+            </ol>
+            <h3>▼最新の正確な料金情報</h3>
+            <p>料金は予告なく変更されるため、<strong>利用前に必ず公式サイトで最新の料金を直接ご確認ください。</strong></p>
+            <p><strong><a href="https://cloud.google.com/vertex-ai/pricing" target="_blank">Google Cloud Vertex AI
+                        公式料金ページ</a></strong></p>
+            <hr />
+            <h2>Part 5 (補足): Google Cloudプロジェクトを削除する方法</h2>
+            <p>間違えてプロジェクトを作成してしまった場合など、不要になったプロジェクトは以下の手順で削除できます。</p>
+            <p><strong>【重要】ご注意</strong><br />
+                プロジェクトを削除すると、そのプロジェクトに関連するすべてのデータや設定が最終的に失われ、元に戻すことはできなくなります。そのプロジェクトで作成したAPIキーもすべて機能しなくなります。</p>
+            <ol>
+                <li><strong>プロジェクト設定ページにアクセス</strong>
+                    <ul>
+                        <li>Google Cloudコンソールの設定ページに直接アクセスします。</li>
+                        <li><strong><a href="https://console.cloud.google.com/iam-admin/settings"
+                                    target="_blank">https://console.cloud.google.com/iam-admin/settings</a></strong></li>
+                    </ul>
+                </li>
+                <li><strong>プロジェクトの選択を確認</strong>
+                    <ul>
+                        <li>画面上部に、現在選択されているプロジェクト名が表示されています。削除したいプロジェクト名になっていることを確認してください。</li>
+                    </ul>
+                </li>
+                <li><strong>シャットダウン をクリック</strong>
+                    <ul>
+                        <li>ゴミ箱のアイコンが付いた<strong><code>[シャットダウン]</code></strong> ボタンをクリックします。</li>
+                    </ul>
+                </li>
+                <li><strong>プロジェクトIDを入力して最終確認</strong>
+                    <ul>
+                        <li>確認画面で、削除するプロジェクトのID（例: <code>test-my-project-470408</code>のような文字列）を入力するよう求められます。</li>
+                        <li>画面の指示に従ってIDを正確に入力し、<code>[シャットダウン]</code> ボタンをクリックします。</li>
+                    </ul>
+                </li>
+            </ol>
+            <p>これで削除手続きは完了です。プロジェクトは30日間の削除保留期間を経て、完全に削除されます。</p>
+        </div>
+    </div>
+    <footer class="text-center text-gray-500 text-xs mt-4 pb-4">
+        &copy; 2025 K.Konuma
+    </footer>
 </body>
-
 </html>
