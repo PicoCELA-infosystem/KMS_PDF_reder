@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用上の注意</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/manual.css">
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+    <div class="container bg-white p-8 rounded-xl shadow-lg w-full">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">使用上の注意</h1>
+        <div class="prose max-w-none">
+<h1>使用上の注意</h1>
+<h2>アップロードするファイルについて</h2>
+<ul>
+<li><strong>アップロードされたファイルは、サーバーには一切保存されません。</strong> ファイルは、お使いのブラウザ内で処理され、Google の API に直接送信されます。そのため、第三者がファイルの内容を閲覧することはありません。</li>
+</ul>
+<h2>PDF ファイルについて</h2>
+<ul>
+<li>テキストベースの PDF ファイルのみ対応しています。スキャンした画像データなどの PDF は、正しく情報を読み取れない可能性があります。</li>
+<li>ファイルサイズが大きい場合、処理に時間がかかることがあります。</li>
+<li>パスワードで保護された PDF ファイルには対応していません。</li>
+</ul>
+<h2>Gemini API キーについて</h2>
+<ul>
+<li>本ツールを使用するには、Google AI Studio で発行された Gemini API キーが必須です。</li>
+<li><strong>API キーは、お使いのブラウザのローカルストレージに保存されます。</strong> これは、他人があなたのコンピュータを直接操作しない限り、外部からキーが盗まれることは通常ありません。</li>
+<li><strong>API キーは、絶対に他人に教えたり、GitHub などのパブリックな場所に公開したりしないでください。</strong> 万が一、キーが漏洩した場合は、速やかに Google AI Studio でキーを再発行または無効化してください。</li>
+<li>API キーの取得方法については、<a href="GEMINI_API_GUIDE.html">こちらのガイド</a>をご参照ください。</li>
+</ul>
+<h2>変換処理について</h2>
+<ul>
+<li><strong>Gemini API の特性上、同じ PDF ファイルであっても、実行するたびに抽出結果が異なる場合があります。</strong> 必ずしも毎回正しい結果が出力されるとは限りません。</li>
+<li>変換処理中にエラーが発生した場合は、ページをリロードしてから、もう一度お試しください。</li>
+<li>一度に処理できるファイルは 1 つです。</li>
+</ul>
+<h2>エラー表示について</h2>
+<p>変換処理中に、以下のようなエラーメッセージが表示されることがあります。</p>
+<ul>
+<li><p><strong><code>APIキーが設定されていません。</code></strong></p>
+<ul>
+<li><strong>原因</strong>: API キーが入力されていないか、正しく保存されていません。</li>
+<li><strong>対処法</strong>: 「Gemini API Key 設定」欄に、正しい API キーを入力して「保存」ボタンを押してください。</li>
+</ul>
+</li>
+<li><p><strong><code>Generative Language API has not been used in project ... before or it is disabled.</code></strong></p>
+<ul>
+<li><strong>原因</strong>: 使用している API キーに関連付けられた Google Cloud プロジェクトで、Generative Language API が有効になっていません。</li>
+<li><strong>対処法</strong>: エラーメッセージに表示されている URL にアクセスし、API を有効にしてください。有効化がシステムに反映されるまで数分かかる場合があります。</li>
+</ul>
+</li>
+<li><p><strong><code>Rate limit exceeded</code> や <code>APIリクエストに失敗しました。</code></strong></p>
+<ul>
+<li><strong>原因</strong>: API サーバーが混み合っている、または短時間にリクエストを送りすぎている可能性があります。</li>
+<li><strong>対処法</strong>: しばらく時間をおいてから、ページをリロードして再度お試しください。</li>
+</ul>
+</li>
+<li><p><strong><code>APIから有効なJSONデータが返されませんでした。</code></strong></p>
+<ul>
+<li><strong>原因</strong>: PDF の内容が複雑で、AI がうまく解析できなかった可能性があります。</li>
+<li><strong>対処法</strong>: 別の PDF ファイルで試すか、PDF の内容を簡素化してみてください。</li>
+</ul>
+</li>
+<li><p><strong><code>ファイルの読み込み中にエラーが発生しました。</code></strong></p>
+<ul>
+<li><strong>原因</strong>: 選択したファイルが破損しているか、ブラウザがファイルの読み込みに失敗しました。</li>
+<li><strong>対処法</strong>: ファイルが正常に開けることを確認してから、再度アップロードしてください。</li>
+</ul>
+</li>
+</ul>
+<h2>その他</h2>
+<ul>
+<li>本ツールは、請求書や領収書などの明細抽出を想定して作られています。そのため、それ以外の形式の PDF では、期待通りに動作しない可能性があります。</li>
+<li>ツールの利用によって生じたいかなる損害についても、開発者は責任を負いかねます。自己責任の上でご利用ください。</li>
+</ul>
+
+</div>
+    </div>
+    <footer class="text-center text-gray-500 text-xs mt-4 pb-4">
+        &copy; 2025 K.Konuma
+    </footer>
+</body>
+</html>

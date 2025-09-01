@@ -16,6 +16,8 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">🔄KMS Invoice Extractor</h1>
         <p class="text-gray-500 mb-8 text-center">PDFをアップロードして、内容をCSV形式に抽出します。</p>
 
+        <p class="text-center mb-4">ツールの詳しい使い方は<a href="user_guide.html" class="text-blue-600 hover:underline" target="_blank">ご利用ガイド</a>をご確認ください。</p>
+
         <div id="drop-area" class="box mb-6">
             <p class="text-gray-600">ファイルをここにドラッグ＆ドロップするか、クリックしてアップロード</p>
             <input type="file" id="fileElem" accept=".pdf" class="hidden" multiple>
@@ -233,17 +235,16 @@
             }
         }
         
+        // 🔧 CSV変換処理（修正版）
         function convertJsonToCsv(jsonData) {
             if (!jsonData || jsonData.length === 0) {
                 return '明細名,税込金額\n';
             }
-            const header = Object.keys(jsonData[0]).join(',') + '\n';
+            const header = '明細名,税込金額\n';
             const rows = jsonData.map(row => {
-                const values = Object.values(row).map(value => {
-                    const escaped = ('' + value).replace(/"/g, '""');
-                    return `"${escaped}"`;
-                });
-                return values.join(',');
+                const name = `"${String(row["明細名"]).replace(/"/g, '""')}"`;
+                const price = row["税込金額"];
+                return `${name},${price}`;
             }).join('\n');
             return header + rows;
         }
