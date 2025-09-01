@@ -38,3 +38,9 @@ err.log
 debug.log
 *.log
 *.log.* # log rotation files like error.log.1, error.log.2.gz, etc.
+
+# Node.js modules
+node_modules/
+
+# Development scripts
+convert_markdown_to_html.js

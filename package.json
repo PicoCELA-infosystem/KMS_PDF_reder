@@ -1,0 +1,27 @@
+{
+  "name": "kms_pdf_reder",
+  "version": "1.0.0",
+  "description": "このツールは、PDF形式の請求書ファイルをアップロードし、その内容をAIが解析してCSV形式のデータに変換するためのアプリケーションです。",
+  "main": "prompt.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PicoCELA-infosystem/KMS_PDF_reder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/PicoCELA-infosystem/KMS_PDF_reder/issues"
+  },
+  "homepage": "https://github.com/PicoCELA-infosystem/KMS_PDF_reder#readme",
+  "dependencies": {
+    "marked": "^16.2.1"
+  }
+}
