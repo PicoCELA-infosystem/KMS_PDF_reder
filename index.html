@@ -214,7 +214,7 @@
                 const csvData = convertJsonToCsv(parsedJson);
 
                 csvOutput.textContent = csvData;
-                setStatus(`変換が完了しました: ${uploadedFile.name}`);
+                setStatus(`変換が完了しました: ${uploadedFile.name}<br>再度変換を行うにはページをリロードしてください。`);
                 copyBtn.disabled = false;
                 downloadBtn.classList.remove('hidden');
                 
@@ -278,7 +278,7 @@
         }
 
         function setStatus(message) {
-            statusDiv.textContent = message;
+            statusDiv.innerHTML = message;
         }
 
         // API Key Management
